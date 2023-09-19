@@ -82,7 +82,7 @@ function watch(source, callback, options = {}) {
     if (typeof source === 'function') {
         getter = source
     } else {
-        getter = traverse(source)
+        getter = () => traverse(source)
     }
     let cleanup
     function onInvalidate(fn) {
@@ -141,7 +141,7 @@ watch(() => proxyData.foo, async (newValue, oldValue, onInvalidate) => {
     });
     const res = await new Promise((resolve) => {
         setTimeout(() => {
-            resolve("请求结果"+ (++count));
+            resolve("请求结果" + (++count));
         }, count === 0 ? 5000 : 1000);
     });
     if (!expired) {
